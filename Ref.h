@@ -34,6 +34,8 @@ bool operator==(const Ref r);
    // OPTIONAL: < and > comparisons might also be useful
    
    void display();// Display the reference on cout, example output: John 3:16
+   
+   void displayName();
   
    // Your version of display must show the book name
    // corresponding to the stored book number.

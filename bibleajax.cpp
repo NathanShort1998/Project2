@@ -31,7 +31,7 @@ using namespace std;
 #include "/home/class/csc3004/cgicc/HTTPHTMLHeader.h"
 #include "/home/class/csc3004/cgicc/HTMLClasses.h"
 using namespace cgicc;
-
+//#define DEBUG
 int main() {
   /* A CGI program must send a response header with content type
    * back to the web client before any other output.
@@ -88,6 +88,7 @@ int main() {
 	  bookNum = book->getIntegerValue();
 	  if((bookNum < 1)||(bookNum > 66)){
 		  cout<< "Book number must be between 1 and 66" << endl;
+		  validInput = false;
 	  }
 	  else{
 		validInput = true;
@@ -100,7 +101,10 @@ int main() {
    *        TO LOOK UP THE REQUESTED VERSES
    */
 	int verseCount = nv->getIntegerValue();
-	cout << "Search Type: <b>" << **st << "</b>" << endl;
+	#ifdef DEBUG
+		cout << "Search Type: <b>" << **st << "</b>" << endl;
+	#endif
+		
 	for(int x = 0; x < verseCount; x++){
 		Ref ref(bookNum, chapterNum, verseNum);
 		// Create a reference from the numbers
@@ -111,10 +115,10 @@ int main() {
 		//cout << endl;
 
 		verse = webBible.lookup(ref, result);
-
+		
 		if(result == NO_VERSE){
 			if( x == 0){
-					//cout << endl  "Result status: No Verse" << result << endl;
+					cout << "Result status: No Verse" << result << endl;
 					break;
 				}
 			chapterNum++;
@@ -143,12 +147,21 @@ int main() {
 			verse = webBible.lookup(ref, result);
 		}
 		
-		if (validInput) {
-			cout << "<p>Your result: "
-			<< **book << " " << **chapter << ":" << **verses 
-			//<< "<em> The " << **nv
-			<< "  " << verse.getVerse() << endl; //or verse.display();
-			}		
+		if (validInput) {			
+			if (x ==0){
+				cout << "<p> ";
+				ref.displayName();
+				cout << " : Chapter (" << **chapter << ") : Verse (" << verseNum << ")";
+			}
+
+			else{
+				if(verseNum == 1){
+					cout<< " Chapter (" << chapterNum << ") ";
+				}
+				cout << "(" << verseNum << ")" ;
+			}
+			cout << "  " << verse.getVerse() << endl; //or verse.display();
+		}		
 		else {
 			cout << "<p>Invalid Input: <em>report the more specific problem.</em></p>" << endl;
 		}

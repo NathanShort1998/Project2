@@ -47,7 +47,7 @@ Ref::Ref(const string s) { // Parse constructor - receives a line "34:5:7 text"
 Ref::Ref(const int b, const int c, const int v) { 	// Construct Ref from three integers
 	book = b;
 	chap = c;
-	verse = v;
+	verse = v;									
 }
 
 // Accessors
@@ -83,4 +83,16 @@ void Ref::display() { 	// Display Reference
 	}
 	
     cout << name << " chapter: " << getChap() <<" verse: " << getVerse();
+}
+
+void Ref::displayName() {
+	string name = "Unknown book for now";
+	ifstream infile ("books.txt");	
+	int bookNum = book;
+	int count = 1;
+	
+	while((count <= book)&& (getline(infile,name))){
+		count++;
+	}
+    cout << name;
 }

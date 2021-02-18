@@ -52,6 +52,7 @@ Bible.o : Ref.h Verse.h Bible.h Bible.cpp
 PutCGI:	bibleajax.cgi
 		chmod 755 bibleajax.cgi
 		cp bibleajax.cgi /var/www/html/class/csc3004/$(USER)/cgi-bin
+		cp books.txt /var/www/html/class/csc3004/$(USER)/cgi-bin
 
 		echo "Current contents of your cgi-bin directory: "
 		ls -l /var/www/html/class/csc3004/$(USER)/cgi-bin/

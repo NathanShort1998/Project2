@@ -81,7 +81,10 @@ const Verse Bible::lookup(Ref ref, LookupResult& status) {
 		
 		else if ((ref2.getBook() == requestedBook)&&(requestedChap < ref2.getChap())){
 			status = NO_VERSE;
-			cout<< "Issue: no verse. Moving to next chapter." << endl <<endl;
+			#ifdef DEBUG
+				cout<< endl << endl << "Issue: no verse. Moving to next chapter." << endl <<endl;
+			#endif
+			cout << endl;
 			Verse v;
 			return (v);
 		}
@@ -91,7 +94,8 @@ const Verse Bible::lookup(Ref ref, LookupResult& status) {
 		
 		else if (requestedBook < ref2.getBook()){
 			status = NO_CHAPTER;
-			cout<< "Issue: no chapter. Moving to next book." << endl;
+			cout<< endl << endl << "Issue: no chapter. Moving to next book." << endl;
+			cout << endl;
 			Verse v;
 			return (v);
 		}
